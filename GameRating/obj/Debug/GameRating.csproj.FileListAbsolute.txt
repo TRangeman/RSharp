@@ -1,0 +1,17 @@
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\MainWindow.baml
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\MainWindow.g.cs
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\App.g.cs
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating_MarkupCompile.cache
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.g.resources
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.Properties.Resources.resources
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.csproj.GenerateResource.Cache
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\GameRating.exe.config
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\GameRating.exe
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\GameRating.pdb
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\RiotSharp.dll
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\RiotSharp.pdb
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\Newtonsoft.Json.xml
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.csprojResolveAssemblyReference.cache
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.exe
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.pdb

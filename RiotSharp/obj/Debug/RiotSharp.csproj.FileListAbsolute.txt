@@ -1,0 +1,7 @@
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\RiotSharp\bin\Debug\RiotSharp.dll
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\RiotSharp\bin\Debug\RiotSharp.pdb
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\RiotSharp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\RiotSharp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\RiotSharp\obj\Debug\RiotSharp.dll
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\RiotSharp\obj\Debug\RiotSharp.pdb
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\RiotSharp\obj\Debug\RiotSharp.csprojResolveAssemblyReference.cache
