@@ -48,12 +48,11 @@ namespace GameRating
 
         private List<MatchSummary> getMatchHistory(Summoner summoner, int index)
         {
-            return summoner.GetMatchHistory(index * NUMBEROFMATCHES, (index + 1) * NUMBEROFMATCHES);
+            return summoner.GetMatchHistory(index * NUMBEROFMATCHES, (index + 1) * NUMBEROFMATCHES, rankedQueues: new List<Queue> { Queue.RankedTeam5x5 });
         }
 
         private AnalysedMatch analyseMatch(MatchDetail match, Int64 summonerId)
         {
-
             List<Participant> t1Parts = new List<Participant>();
             List<Participant> t2Parts = new List<Participant>();
             Team team1;
@@ -86,8 +85,14 @@ namespace GameRating
             double kPartRating = getKillPart(t1Parts);
             double objPK = getObjPerKill(t1Parts,team1);
             bool win = team1.Winner;
+            double goldQuo = (double)getTotalGold(t1Parts) / getTotalGold(t2Parts); 
+            double objEff = RATINGMODIFIER;
+            objEff *= (double)team1.totalObjectives() / team2.totalObjectives();
+            objEff /= goldQuo;
+            objEff = Math.Round(objEff, 2);
+            goldQuo = Math.Round(goldQuo, 2);
 
-            return new AnalysedMatch(match.MatchCreation, kPartRating, champ, win, summ.Stats.getStdStatsStr(), objPK);            
+            return new AnalysedMatch(match.MatchCreation, kPartRating, champ, win, summ.Stats.getStdStatsStr(), objPK, objEff, goldQuo);            
         }
 
         private long getTotalGold(List<Participant> parts)

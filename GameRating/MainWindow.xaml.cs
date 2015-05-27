@@ -33,14 +33,13 @@ namespace GameRating
             pMatches = new List<AnalysedMatch>();
             InitializeComponent();
             loadRegions(ConfigurationManager.AppSettings["defaultRegion"]);
-            initConnection();
             SummonerInputBox.Focus();
             SummonerInputBox.SelectAll();
         }
 
         private void initConnection()
         {
-            keyLabel.Content = ConfigurationManager.AppSettings["ApiKey"];
+            updateLabel(ConfigurationManager.AppSettings["ApiKey"]);
             api = RiotApi.GetInstance(ConfigurationManager.AppSettings["ApiKey"]);
         }
 
@@ -96,6 +95,17 @@ namespace GameRating
         {
             historyIndex++;
             load();
+        }
+
+        private void updateLabel(string text)
+        {
+            keyLabel.Content = text;
+            MainWindow1.MinWidth = this.keyLabel.ActualWidth + this.loadHistoryBt.ActualWidth + this.ldMoreBt.ActualWidth + 25;
+        }
+
+        private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
+        {
+            initConnection();
         }
     }
 }

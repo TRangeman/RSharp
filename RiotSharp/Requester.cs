@@ -57,6 +57,8 @@ namespace RiotSharp
         protected string GetResponse(HttpWebRequest request, int errorCount = ERROR_COUNT)
         {
             string result = string.Empty;
+            if (errorCount == 0)
+                return result;
             try
             {
                 var response = (HttpWebResponse)request.GetResponse();
@@ -86,8 +88,6 @@ namespace RiotSharp
         protected async Task<string> GetResponseAsync(HttpWebRequest request, int errorCount = ERROR_COUNT)
         {
             string result = string.Empty;
-            if(errorCount == 0)
-                return result;
 
             try
             {

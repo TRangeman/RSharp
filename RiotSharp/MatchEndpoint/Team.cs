@@ -108,7 +108,9 @@ namespace RiotSharp.MatchEndpoint
 
         public int totalObjectives()
         {
-            return enemyObjectives() + neutralObjetives();
+            int test = enemyObjectives();
+            test += neutralObjetives();
+            return test;
         }
     }
 }
