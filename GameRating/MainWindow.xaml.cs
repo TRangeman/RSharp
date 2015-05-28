@@ -16,6 +16,7 @@ using System.Configuration;
 using RiotSharp;
 using System.Data;
 using RiotSharp.SummonerEndpoint;
+using CustomUtil;
 
 namespace GameRating
 {
@@ -31,6 +32,7 @@ namespace GameRating
         public MainWindow()
         {
             pMatches = new List<AnalysedMatch>();
+            Logger.directory = System.AppDomain.CurrentDomain.BaseDirectory.ToString();
             InitializeComponent();
             loadRegions(ConfigurationManager.AppSettings["defaultRegion"]);
             SummonerInputBox.Focus();
@@ -40,7 +42,7 @@ namespace GameRating
         private void initConnection()
         {
             updateLabel(ConfigurationManager.AppSettings["ApiKey"]);
-            api = RiotApi.GetInstance(ConfigurationManager.AppSettings["ApiKey"]);
+            api = RiotApi.GetInstance(ConfigurationManager.AppSettings["ApiKey"], 10);
         }
 
         private void loadRegions(string defaultSStr)
@@ -68,17 +70,37 @@ namespace GameRating
         {
             historyIndex = 0;
             pMatches.Clear();
-            load();
+            load();  
         }
 
-        private void load()
+        private async void load()
         {
-            Analyser analyser = new Analyser(api, StaticRiotApi.GetInstance(ConfigurationManager.AppSettings["ApiKey"]));
-            List<AnalysedMatch> matches = analyser.getAnalysedMatchHistory(SummonerInputBox.Text, parseString2Region(regionBox.SelectedItem.ToString()),historyIndex);
-            matches.Reverse();
-            pMatches.AddRange(matches);
-            historyView.ItemsSource = null;
-            historyView.ItemsSource = pMatches;
+            Mouse.OverrideCursor = Cursors.Wait;
+            toggleWorking(true);
+            try
+            {
+                Analyser analyser = new Analyser(api, StaticRiotApi.GetInstance(ConfigurationManager.AppSettings["ApiKey"]));
+                List<AnalysedMatch> matches = await analyser.getAnalysedMatchHistory(SummonerInputBox.Text, parseString2Region(regionBox.SelectedItem.ToString()), historyIndex);
+                matches.Reverse();
+                pMatches.AddRange(matches);
+                historyView.ItemsSource = null;
+                historyView.ItemsSource = pMatches;
+                this.Width = historyView.ActualWidth + 150;
+            } catch(Exception ex)
+            {
+                if (ex.Message == "ErrorSumm")
+                    MessageBox.Show("Summoner not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    MessageBox.Show(@"An unexpected error occurred!" + Environment.NewLine + "Please inform the creator of this application." + Environment.NewLine + "The logfile can be found at:" + Environment.NewLine + System.AppDomain.CurrentDomain.BaseDirectory.ToString() + @"TeamRating.log", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Logger.logError(ex.StackTrace.ToString() + Environment.NewLine + ex.Message);
+                }
+            }
+            finally
+            {
+                toggleWorking(false);
+                Mouse.OverrideCursor = null;
+            }
         }
 
         private void SummonerInputBox_KeyDown(object sender, KeyEventArgs e)
@@ -106,6 +128,13 @@ namespace GameRating
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
         {
             initConnection();
+        }
+
+        private void toggleWorking(bool working)
+        {
+            working = !working;
+            this.ldMoreBt.IsEnabled = working;
+            this.loadHistoryBt.IsEnabled = working;
         }
     }
 }

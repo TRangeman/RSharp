@@ -1,8 +1,10 @@
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\GameRating.exe.config
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\GameRating.exe
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\GameRating.pdb
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\CustomUtil.dll
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\RiotSharp.dll
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\CustomUtil.pdb
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\RiotSharp.pdb
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\Newtonsoft.Json.xml
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.csprojResolveAssemblyReference.cache
@@ -15,3 +17,7 @@ C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRat
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.csproj.GenerateResource.Cache
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.exe
 C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.pdb
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\GameRating.exe.manifest
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\bin\Debug\GameRating.application
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.exe.manifest
+C:\Users\jbergmann\Documents\Visual Studio 2013\Projects\RiotSharp-2.2.1\GameRating\obj\Debug\GameRating.application

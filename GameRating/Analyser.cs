@@ -23,35 +23,48 @@ namespace GameRating
             this.sApi = sApi;
         }
 
-        public List<AnalysedMatch> getAnalysedMatchHistory(string summonerName, Region region, int index = 0)
+        public async Task<List<AnalysedMatch>> getAnalysedMatchHistory(string summonerName, Region region, int index = 0)
         {
-            Summoner summoner = api.GetSummoner(region, summonerName);
+            Summoner summoner;
+            try
+            {
+               summoner = await api.GetSummonerAsync(region, summonerName);
+            }
+            catch (RiotSharpException)
+            {
+                CustomUtil.Logger.logError("Error while loading summoner info");
+                throw new Exception("ErrorSumm");
+            }
             Int64 sId = summoner.Id;
-            List<MatchSummary> history = getMatchHistory(summoner, index);
+            List<MatchSummary> history = await getMatchHistory(summoner, index);
             List<AnalysedMatch> analysed = new List<AnalysedMatch>();
 
+            if(history == null)
+                throw new RiotSharpException();
             foreach(MatchSummary match in history)
             {
-                var matchD = api.GetMatch(region, match.MatchId);
-                if(matchD != null)
-                {
-                    analysed.Add(analyseMatch(matchD, sId));                
+                
+               try{
+                    Task<MatchDetail> task = Task.Run(() => api.GetMatch(region, match.MatchId));
+                    MatchDetail matchD = await task;
+                    Task<AnalysedMatch> mTask = Task.Run(() => analyseMatch(matchD, sId));
+                    AnalysedMatch aMatch = await mTask;
+                    analysed.Add(aMatch);                
                 }
-                else
+                catch(RiotSharpException)
                 {
-                    throw new Exception();
+                    CustomUtil.Logger.logError("Couldn't get match details:" + Environment.NewLine + match.MatchCreation);
                 }
             }
-
-            return analysed;
+            return await Task.Run(() => analysed);
         }
 
-        private List<MatchSummary> getMatchHistory(Summoner summoner, int index)
+        private async Task<List<MatchSummary>> getMatchHistory(Summoner summoner, int index)
         {
-            return summoner.GetMatchHistory(index * NUMBEROFMATCHES, (index + 1) * NUMBEROFMATCHES, rankedQueues: new List<Queue> { Queue.RankedTeam5x5 });
+            return await Task.Run(() => summoner.GetMatchHistory(index * NUMBEROFMATCHES, (index + 1) * NUMBEROFMATCHES, rankedQueues: new List<Queue> { Queue.RankedTeam5x5 }));
         }
 
-        private AnalysedMatch analyseMatch(MatchDetail match, Int64 summonerId)
+        private async Task<AnalysedMatch> analyseMatch(MatchDetail match, Int64 summonerId)
         {
             List<Participant> t1Parts = new List<Participant>();
             List<Participant> t2Parts = new List<Participant>();
@@ -80,6 +93,9 @@ namespace GameRating
                 team2 = match.Teams[0];
             }
 
+            /*
+             * very well written part following 420/69
+             */
             string champ = sApi.GetChampion(Region.euw, summ.ChampionId).Name;
 
             double kPartRating = getKillPart(t1Parts);
@@ -92,7 +108,7 @@ namespace GameRating
             objEff = Math.Round(objEff, 2);
             goldQuo = Math.Round(goldQuo, 2);
 
-            return new AnalysedMatch(match.MatchCreation, kPartRating, champ, win, summ.Stats.getStdStatsStr(), objPK, objEff, goldQuo);            
+            return await Task.Run(() => new AnalysedMatch(match.MatchCreation, kPartRating, champ, win, summ.Stats.getStdStatsStr(), objPK, objEff, goldQuo));            
         }
 
         private long getTotalGold(List<Participant> parts)

@@ -36,6 +36,7 @@ namespace RiotSharp
             semaphore.Wait();
             {
                 HandleRateLimit(region);
+                CustomUtil.Logger.logInfo("request permission SYNC");
             }
             semaphore.Release();
 
@@ -51,6 +52,7 @@ namespace RiotSharp
             await semaphore.WaitAsync();
             {
                 HandleRateLimit(region);
+                CustomUtil.Logger.logInfo("request permission ASYNC");
             }
             semaphore.Release();
 
@@ -104,6 +106,9 @@ namespace RiotSharp
 
         private void handleLast10S(Region region)
         {
+            /*if(numberOfRequestsInLastTenS.ContainsKey(region))
+            if (numberOfRequestsInLastTenS[region] > 9)
+            { }*/
             initSetLast10S(region);
 
             incCounterLast10S(region);
@@ -121,6 +126,7 @@ namespace RiotSharp
         {
             if (numberOfRequestsInLastTenS.ContainsKey(region)) //inc counter
             {
+                CustomUtil.Logger.logInfo("requestSYNC");
                 numberOfRequestsInLastTenS[region]++;
             }
             else
@@ -131,10 +137,11 @@ namespace RiotSharp
 
         private void holdRequestLast10S(Region region)
         {
-            if (numberOfRequestsInLastTenS[region] > RateLimitPer10S)   //wait if no capacity
+            if (numberOfRequestsInLastTenS[region] >= RateLimitPer10S)   //wait if no capacity
             {
-                while ((DateTime.Now - firstRequestsInLastTenS[region]).TotalSeconds <= 13.0) //wait until reset: default is 13.0
+                while ((DateTime.Now - firstRequestsInLastTenS[region]).TotalSeconds <= 11.0) //wait until reset: default is 13.0
                 {
+                    Thread.Sleep(50);
                 }
             }
         }

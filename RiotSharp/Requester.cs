@@ -2,12 +2,13 @@
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace RiotSharp
 {
     class Requester
     {
-        private const int ERROR_COUNT = 1;
+        private const int ERROR_COUNT = 2;
 
         private static Requester instance;
         protected Requester() { }
@@ -58,11 +59,14 @@ namespace RiotSharp
         {
             string result = string.Empty;
             if (errorCount == 0)
-                return result;
+            {
+                CustomUtil.Logger.logError("429, Rate Limit Exceeded");
+                throw new RiotSharpException("429, Rate Limit Exceeded");
+            }
+
             try
             {
                 var response = (HttpWebResponse)request.GetResponse();
-
                 using (var reader = new StreamReader(response.GetResponseStream()))
                 {
                     result = reader.ReadToEnd();
@@ -77,7 +81,10 @@ namespace RiotSharp
                 catch (RiotSharpException RSEX)
                 {
                     if (RSEX.Message == "429, Rate Limit Exceeded")
+                    {
+                        Thread.Sleep(2500);
                         GetResponse(request, --errorCount);
+                    }
                     else
                         throw RSEX;
                 }
@@ -91,8 +98,9 @@ namespace RiotSharp
 
             try
             {
+                CustomUtil.Logger.logInfo("request send ASYNC");
                 var response = (HttpWebResponse)(await request.GetResponseAsync());
-
+                CustomUtil.Logger.logInfo("request ASYNC");
                 using (var reader = new StreamReader(response.GetResponseStream()))
                 {
                     result = await reader.ReadToEndAsync();
@@ -106,7 +114,10 @@ namespace RiotSharp
                 } catch(RiotSharpException RSEX)
                 {
                     if (RSEX.Message == "429, Rate Limit Exceeded")
+                    {
+                        Thread.Sleep(2500);
                         GetResponse(request, --errorCount);
+                    }
                     else
                         throw RSEX;
                 }
